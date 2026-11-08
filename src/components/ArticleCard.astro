@@ -1,0 +1,4 @@
+---
+const { title, description, href, category='GUIDE', meta='5 min read', number='01' } = Astro.props;
+---
+<a class="article-card" href={href}><div class="article-visual"><span class="article-number">{number}</span><div class="article-orbit"><span>✳</span></div></div><div class="article-content"><span class="eyebrow">{category} · {meta}</span><h3>{title}</h3><p>{description}</p><span class="text-link">Read article <span aria-hidden="true">↗</span></span></div></a>

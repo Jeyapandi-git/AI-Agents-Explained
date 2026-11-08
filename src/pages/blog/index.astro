@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+const base=import.meta.env.BASE_URL;
+const posts=(await getCollection('blog',({data})=>!data.draft)).sort((a,b)=>b.data.pubDate.valueOf()-a.data.pubDate.valueOf());
+---
+<BaseLayout title="Blog"><section class="container page-hero"><span class="eyebrow">THE KNOWLEDGE BASE</span><h1>Learn the <span class="gradient-text">fundamentals.</span></h1><p>Clear, practical articles on how AI agents work and how to build them.</p></section><section class="container section"><div class="card-grid">{posts.map((post,i)=><ArticleCard title={post.data.title} description={post.data.description} href={`${base}blog/${post.id}/`} category={post.data.category.toUpperCase()} meta={post.data.readingTime} number={String(i+1).padStart(2,'0')}/>)}</div></section></BaseLayout>
