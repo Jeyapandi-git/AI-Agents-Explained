@@ -1,19 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ArticleCard from '../components/ArticleCard.astro';
+import ArticleSidebar from '../components/ArticleSidebar.astro';
 import { getCollection } from 'astro:content';
+import { publishedLabel } from '../utils/date';
 const base = import.meta.env.BASE_URL;
 const posts = (await getCollection('blog', ({data}) => !data.draft)).sort((a,b)=>b.data.pubDate.valueOf()-a.data.pubDate.valueOf());
+const latest = posts[0];
 ---
 <BaseLayout>
-  <section class="hero container">
-    <div class="hero-copy">
-      <div class="eyebrow pill"><span class="pulse"></span> PRACTICAL AI EDUCATION</div>
-      <h1>AI Agents.<br /><span class="gradient-text">Explained clearly.</span></h1>
-      <p class="hero-description">Understand how AI agents use models, tools, and context to carry out tasks. Clear concepts, real-world examples, and thoughtful technical explanations.</p>
-      <div class="button-row"><a class="button primary" href={`${base}blog/what-is-an-ai-agent/`}>Read the first article <span>↗</span></a><a class="button secondary" href={`${base}blog/`}>Browse articles</a></div>
+  <h1>AI Agents Explained</h1>
+  <p class="lede">Clear explanations, practical examples, and real-world applications of AI Agent technology.</p>
+  <div class="reading-layout">
+    <ArticleSidebar activeId={latest?.id} />
+    <div class="reading-content">
+      {latest ? <>
+        <p class="meta"><time datetime={latest.data.pubDate.toISOString()}>{publishedLabel(latest.data.pubDate, false)}</time> · {latest.data.category}</p>
+        <h2 class="featured-title"><a href={`${base}blog/${latest.id}/`}>{latest.data.title}</a></h2>
+        <p>{latest.data.description}</p>
+        <a href={`${base}blog/${latest.id}/`}>Read article →</a>
+      </> : <p>Articles will appear here when published.</p>}
     </div>
-    <div class="hero-art" aria-hidden="true"><div class="art-grid"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="core"><span>✳</span><small>AGENT</small></div><div class="satellite satellite-one">◈ <span>MODEL</span></div><div class="satellite satellite-two">⌘ <span>TOOLS</span></div><div class="satellite satellite-three">◎ <span>CONTEXT</span></div><div class="satellite satellite-four">↗ <span>ACTIONS</span></div></div>
-  </section>
-  <section class="section container"><div class="section-heading"><div><span class="eyebrow">FEATURED ARTICLE</span><h2>Start with the fundamentals.</h2><p>An accessible introduction to AI agent technology.</p></div><a class="subtle-link" href={`${base}blog/`}>All articles ↗</a></div><div class="card-grid">{posts.slice(0,3).map((post,i)=><ArticleCard title={post.data.title} description={post.data.description} href={`${base}blog/${post.id}/`} category={post.data.category.toUpperCase()} meta={post.data.readingTime} number={String(i+1).padStart(2,'0')}/>)}</div></section>
+  </div>
 </BaseLayout>

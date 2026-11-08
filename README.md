@@ -1,36 +1,44 @@
-# AI Agents Explained — GitHub Pages website
+# AI Agents Explained
 
-A focused, public educational website with **Home**, **Blog**, and **About** pages. The first article, **What Is an AI Agent? Explained With Real-Life Examples**, is included. No personal learning plan, publishing calendar, or future project roadmap appears on the public site.
+A minimal Astro website with Home, Articles, and About pages. Includes one published AI Agent article and a profile photo. No roadmap, future-content schedule, or private progress information.
 
-## Deploy to GitHub Pages
+## GitHub Pages deployment
 
-1. Create or open the public repository `Jeyapandi-git/AI-Agents-Explained`.
-2. Upload the **contents** of this project folder to the repository root, including the hidden `.github/workflows/deploy.yml` file. Do not upload the ZIP as a single file.
-3. If you uploaded an earlier version, **delete the old `src/pages/roadmap.astro`, `src/pages/videos/index.astro`, and `src/pages/projects/index.astro` files from GitHub**; uploading new files does not automatically remove old ones.
-4. Open **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-5. Push or commit to the `main` branch. Watch the **Actions** tab for the deployment result.
-6. Once deployment succeeds, visit https://jeyapandi-git.github.io/AI-Agents-Explained/ .
+Repository: `Jeyapandi-git/AI-Agents-Explained`
 
-The Astro base path is set to `/AI-Agents-Explained` and the site URL to `https://jeyapandi-git.github.io`.
+1. Upload **the contents of this folder** to the repository root, preserving `.github/workflows/deploy.yml`.
+2. If an older website version is in the repository, remove old `src/pages/videos`, `src/pages/projects`, `src/pages/roadmap` files and other old pages you do not want publicly visible. Remove any old `src/components`, `src/data`, or `src/styles` files not in this package. Do not delete GitHub's repository settings or history.
+3. In GitHub, open **Settings → Pages → Build and deployment**, and select **GitHub Actions**.
+4. Open **Actions** and check **Deploy Astro to GitHub Pages**. The workflow runs on commits to `main` and can also be run manually.
+5. After a successful run, open https://jeyapandi-git.github.io/AI-Agents-Explained/
 
-## Run locally
+## Publish another article
 
-Install Node.js 20.19+ (or a supported newer version), then:
+Create a Markdown file in `src/content/blog/` with `title`, `description`, and `pubDate` frontmatter. Commit to `main` to redeploy.
 
-```bash
-npm install
-npm run dev
-npm run build
+## Local preview
+
+Install Node.js 22 or later, then run `npm install`, `npm run dev`, or `npm run build`.
+
+The website's source is public. Do not commit private plans or personal information you don't intend to publish.
+
+## Publication date and time
+Each Markdown post has `pubDate` in its frontmatter. A date-only value like `2026-11-09` displays **Published November 9, 2026**. This avoids inventing a time.
+
+To display the actual publication time, change the frontmatter to an ISO 8601 timestamp with a timezone offset and set `hasPublicationTime: true`:
+
+```yaml
+pubDate: 2026-11-09T14:30:00+08:00
+hasPublicationTime: true
 ```
 
-## Publish your next article when you are ready
+Use the **actual** publication time; the timestamp above is only an example. The website formats timestamps in Philippine Time (PHT). Date/time is shown on the home page, articles listing, and individual article pages.
 
-Add a Markdown file to `src/content/blog/` with `title`, `description`, `pubDate`, `category`, and `readingTime` frontmatter. Commit the change to trigger redeployment. There is no public schedule.
+## Article navigation
 
-## Video embedding (optional, later)
+The Home and Articles pages automatically list published Markdown articles, newest first. Visitors can search article titles, descriptions, and categories. Category filters appear automatically once articles exist in more than one category. No manual navigation updates are required.
 
-When your first YouTube video is live, you can embed it in its companion Markdown article using the YouTube privacy-enhanced embed URL. Until then, the first article is a standalone written post.
+Publication dates display without times. For each new article, set `pubDate: YYYY-MM-DD` and `category: "Topic"` in the Markdown frontmatter.
 
-## Privacy
-
-The public site does not disclose your private learning roadmap or intended posting frequency. GitHub repositories are public by design: committed source files and history are visible. Avoid committing private plans, credentials, unpublished material, or confidential work information.
+## Article sidebar
+The homepage, article index, and individual article pages use a left-hand Browse Articles sidebar. New Markdown posts appear automatically, grouped by their `category` metadata. On mobile the sidebar becomes an expandable Browse Articles menu.

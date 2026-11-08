@@ -4,6 +4,7 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(), description: z.string(), pubDate: z.coerce.date(),
+    hasPublicationTime: z.boolean().default(false),
     category: z.string().default('Fundamentals'), readingTime: z.string().default('5 min read'),
     episode: z.number().optional(), videoId: z.string().optional(), draft: z.boolean().default(false)
   })

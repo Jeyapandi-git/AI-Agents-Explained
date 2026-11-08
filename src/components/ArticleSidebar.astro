@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+const base = import.meta.env.BASE_URL;
+const posts = (await getCollection('blog', ({data}) => !data.draft)).sort((a,b) => b.data.pubDate.valueOf()-a.data.pubDate.valueOf());
+const categories = [...new Set(posts.map(p=>p.data.category))].sort();
+const { activeId } = Astro.props;
+---
+<aside class="browse-sidebar" aria-label="Browse articles">
+  <details class="browse-disclosure" open>
+    <summary>Browse Articles</summary>
+    <div class="browse-inner">
+      <label class="sr-only" for="sidebar-search">Search articles</label>
+      <input id="sidebar-search" type="search" placeholder="Find an article..." data-sidebar-search />
+      <nav aria-label="Article navigation">
+        {categories.map(category => <div class="browse-category">
+          <p class="browse-heading">{category}</p>
+          <ul>{posts.filter(p=>p.data.category===category).map(post=><li data-sidebar-item data-search-text={`${post.data.title} ${post.data.description}`.toLowerCase()}>
+            <a class:list={['browse-link', {'current': post.id===activeId}]} aria-current={post.id===activeId?'page':undefined} href={`${base}blog/${post.id}/`}>{post.data.title}</a>
+          </li>)}</ul>
+        </div>)}
+      </nav>
+      <p class="sidebar-empty" hidden data-sidebar-empty>No matching articles.</p>
+    </div>
+  </details>
+</aside>
+<script>
+  document.querySelectorAll<HTMLElement>('.browse-sidebar').forEach(sidebar=>{
+    const details=sidebar.querySelector<HTMLDetailsElement>('details');
+    if (details && window.matchMedia('(max-width: 700px)').matches) details.open=false;
+    const search=sidebar.querySelector<HTMLInputElement>('[data-sidebar-search]');
+    const items=Array.from(sidebar.querySelectorAll<HTMLElement>('[data-sidebar-item]'));
+    const empty=sidebar.querySelector<HTMLElement>('[data-sidebar-empty]');
+    search?.addEventListener('input',()=>{
+      const query=search.value.trim().toLowerCase(); let visible=0;
+      items.forEach(item=>{item.hidden=!(item.dataset.searchText||'').includes(query);if(!item.hidden) visible++;});
+      sidebar.querySelectorAll<HTMLElement>('.browse-category').forEach(group=>{group.hidden=!group.querySelector('[data-sidebar-item]:not([hidden])');});
+      if(empty)empty.hidden=visible!==0;
+    });
+  });
+</script>

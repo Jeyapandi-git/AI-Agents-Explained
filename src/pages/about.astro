@@ -1,45 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="About Jeyapandi">
-  <section class="container page-hero about-intro">
-    <div class="about-intro-copy">
-      <span class="eyebrow">ABOUT ME</span>
-      <h1>Hi, I'm <span class="gradient-text">Jeyapandi.</span></h1>
-      <p class="about-subtitle">Enterprise Technology &amp; Consulting Professional · Exploring Agentic AI</p>
-    </div>
-    <div class="profile-frame">
-      <img src={`${import.meta.env.BASE_URL}profile.jpg`} alt="Portrait of Jeyapandi" class="profile-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
-      <div class="profile-fallback" aria-label="Profile photograph coming soon">JS</div>
-    </div>
+<BaseLayout title="About Me">
+  <section class="author" style="margin-bottom:36px">
+    <img src={`${base}profile.jpg`} alt="Portrait of Jeyapandi Sethu Krishnan" width="100" height="100" />
+    <div><h1 style="font-size:2.1rem;margin-bottom:6px">About Me</h1><p>Hi, I'm Jeyapandi.</p></div>
   </section>
-  <section class="container about-story">
-    <p>I'm a technology and consulting professional with over 20+ years of experience in consulting, enterprise applications, digital transformation. My work has focused on helping organizations solve complex business challenges through technology, particularly in Oracle Cloud ERP and financial transformation.</p>
-    <p>Throughout my career, I've had the opportunity to work on large-scale technology transformations, lead teams, and mentor professionals. One thing that has always interested me is understanding how technology works and how it can create meaningful value.</p>
-    <p>Today, one area that particularly interests me is Agentic AI — the technology that enables AI systems to reason through tasks, interact with tools, and execute multi-step workflows.</p>
-    <h2>Why AI Agents Explained?</h2>
-    <p>AI is evolving at an incredible pace. We are seeing AI systems move beyond answering questions to using tools, making decisions, and executing complex workflows.</p>
-    <p>I find this shift fascinating.</p>
-    <p>As I explore AI Agent technologies, I want to share what I learn, experiment with different approaches, and make these concepts easier for others to understand.</p>
-    <p>That's why I created <strong>AI Agents Explained</strong>.</p>
-    <p>A place to explore AI Agent architecture, emerging technologies, frameworks, and real-world applications through simple explanations and practical examples.</p>
-    <h2>What You'll Find Here</h2>
-    <p>I'll be sharing my perspectives on AI Agent technologies, breaking down technical concepts, and exploring how they work through hands-on examples.</p>
-    <p>My focus is on connecting the technology with practical applications, while keeping the explanations clear and accessible.</p>
-    <p class="about-welcome"><strong>Welcome to AI Agents Explained.</strong></p>
-  </section>
+  <p>I'm a technology and consulting professional with over 20+ years of experience in consulting, enterprise applications, digital transformation. My work has focused on helping organizations solve complex business challenges through technology, particularly in Oracle Cloud ERP and financial transformation.</p>
+  <p>Throughout my career, I've had the opportunity to work on large-scale technology transformations, lead teams, and mentor professionals. One thing that has always interested me is understanding how technology works and how it can create meaningful value.</p>
+  <p>Today, one area that particularly interests me is Agentic AI — the technology that enables AI systems to reason through tasks, interact with tools, and execute multi-step workflows.</p>
+  <h2>Why AI Agents Explained?</h2>
+  <p>AI is evolving at an incredible pace. We are seeing AI systems move beyond answering questions to using tools, making decisions, and executing complex workflows.</p>
+  <p>I find this shift fascinating.</p>
+  <p>As I explore AI Agent technologies, I want to share what I learn, experiment with different approaches, and make these concepts easier for others to understand.</p>
+  <p>That's why I created <strong>AI Agents Explained</strong>.</p>
+  <p>A place to explore AI Agent architecture, emerging technologies, frameworks, and real-world applications through simple explanations and practical examples.</p>
+  <h2>What You'll Find Here</h2>
+  <p>I'll be sharing my perspectives on AI Agent technologies, breaking down technical concepts, and exploring how they work through hands-on examples.</p>
+  <p>My focus is on connecting the technology with practical applications, while keeping the explanations clear and accessible.</p>
+  <p><strong>Welcome to AI Agents Explained.</strong></p>
 </BaseLayout>
-<style>
-  .about-intro{display:flex;justify-content:space-between;align-items:center;gap:3rem;padding-bottom:2.5rem}
-  .about-intro h1{margin:1rem 0}
-  .about-subtitle{font-size:1rem;max-width:38rem}
-  .profile-frame{flex:0 0 180px;width:180px;height:180px;border-radius:50%;border:3px solid #4ee5bf;padding:5px;box-shadow:0 0 45px #4ee5bf20;overflow:hidden}
-  .profile-photo,.profile-fallback{width:100%;height:100%;border-radius:50%;object-fit:cover}
-  .profile-fallback{display:none;place-items:center;background:#123c41;color:#4ee5bf;font-size:3rem;font-weight:700}
-  .about-story{max-width:860px;padding-bottom:100px}
-  .about-story p{font-size:1.07rem;line-height:1.85;margin-bottom:1.35rem}
-  .about-story h2{font-size:1.85rem;margin:2.8rem 0 1.15rem}
-  .about-story strong{color:#eaf4fa}
-  .about-welcome{margin-top:2.5rem;padding-top:1.4rem;border-top:1px solid #26384a}
-  @media(max-width:760px){.about-intro{flex-direction:column-reverse;align-items:flex-start;gap:1.5rem}.profile-frame{flex-basis:auto;width:130px;height:130px}.about-story p{font-size:1rem}}
-</style>

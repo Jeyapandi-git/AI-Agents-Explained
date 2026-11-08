@@ -1,36 +1,31 @@
 ---
 import '../styles/global.css';
-import { site } from '../data/site';
-const { title = site.name, description = site.description } = Astro.props;
+const { title = 'AI Agents Explained', description = 'Clear explanations and practical examples of AI agent technology.' } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const url = (path = '') => `${base}${path.replace(/^\//, '')}`;
-const nav = [['Home',''],['Blog','blog/'],['About','about/']];
-const pathname = Astro.url.pathname;
+const link = (path = '') => `${base}${path}`;
 ---
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#07111f" />
-  <meta name="description" content={description} />
-  <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
-  <link rel="canonical" href={Astro.url.href} />
-  <title>{title === site.name ? title : `${title} | ${site.name}`}</title>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href={url()} aria-label="AI Agents Explained home"><span class="brand-mark">✳</span><span>AI Agents <strong>Explained</strong></span></a>
-      <nav aria-label="Main navigation" class="desktop-nav">
-        {nav.map(([label,path]) => <a class:list={['nav-link', {active: path ? pathname.startsWith(url(path)) : pathname === url()}]} href={url(path)}>{label}</a>)}
-      </nav>
-
-      <details class="mobile-menu"><summary aria-label="Open navigation">☰</summary><nav aria-label="Mobile navigation">{nav.map(([label,path]) => <a href={url(path)}>{label}</a>)}</nav></details>
-    </div>
-  </header>
-  <main id="main"><slot /></main>
-  <footer class="site-footer"><div class="container footer-inner"><div><a class="brand" href={url()}><span class="brand-mark">✳</span> AI Agents <strong>Explained</strong></a><p>Clear explanations of AI agent technology.</p></div><div class="footer-links"><a href={url('blog/')}>Blog</a><a href={url('about/')}>About</a><a href={site.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="container copyright">© {new Date().getFullYear()} AI Agents Explained. Built with Astro and GitHub Pages.</div></footer>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href={link('favicon.svg')} type="image/svg+xml" />
+    <title>{title === 'AI Agents Explained' ? title : `${title} | AI Agents Explained`}</title>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="shell header-row">
+        <a class="brand" href={link('')}>AI Agents Explained</a>
+        <nav aria-label="Main navigation">
+          <a href={link('')}>Home</a>
+          <a href={link('blog/')}>Articles</a>
+          <a href={link('about/')}>About</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="shell"><slot /></main>
+    <footer class="site-footer"><div class="shell">© {new Date().getFullYear()} AI Agents Explained · <a href={link('about/')}>About the author</a></div></footer>
+  </body>
 </html>
